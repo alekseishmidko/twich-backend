@@ -285,7 +285,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/alexeishmidko/Desktop/code/twich/backend/prisma/generated",
+      "value": "/Users/alexeishmidko/Desktop/code/ts/twich/backend/prisma/generated",
       "fromEnvVar": null
     },
     "config": {
@@ -299,7 +299,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/alexeishmidko/Desktop/code/twich/backend/prisma/schema.prisma",
+    "sourceFilePath": "/Users/alexeishmidko/Desktop/code/ts/twich/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -313,7 +313,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
