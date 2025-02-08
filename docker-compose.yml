@@ -28,6 +28,17 @@ services:
     networks:
       - twich-backend
 
+  redis-insight:
+    container_name: redis-insight
+    image: redislabs/redisinsight:latest
+    ports:
+      - '8001:8001'
+    networks:
+      - twich-backend
+    depends_on:
+      - redis
+    restart: always
+
 volumes:
   postgres_data:
   redis_data:
