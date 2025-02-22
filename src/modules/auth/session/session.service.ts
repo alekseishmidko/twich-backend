@@ -12,12 +12,12 @@ import { TOTP } from 'otpauth';
 
 import { PrismaService } from '@/src/core/prisma/prisma.service';
 import { RedisService } from '@/src/core/redis/redis.service';
-import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
-import { destroySession, saveSession } from '@/src/shared/utils/session.util';
 
 import { VerificationService } from '../verification/verification.service';
 
 import { LoginInput } from './inputs/login.input';
+import { getSessionMetadata } from '@/src/shared/utils/session-metadata.util';
+import { destroySession, saveSession } from '@/src/shared/utils/session.utils';
 
 @Injectable()
 export class SessionService {
