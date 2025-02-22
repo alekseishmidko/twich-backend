@@ -1,6 +1,6 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import * as GraphQLUpload from 'graphql-upload';
-import * as Upload from 'graphql-upload';
+import { FileUpload as Upload } from 'graphql-upload';
 
 // import { GraphQLUpload, Upload } from 'graphql-upload-minimal/public/index';
 
