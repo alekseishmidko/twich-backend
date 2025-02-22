@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
-import graphqlUploadExpress from 'graphql-upload';
+import { graphqlUploadExpress } from 'graphql-upload';
 
 import { CoreModule } from './core/core.module';
 import { ms, StringValue } from './shared/utils/ms-util';

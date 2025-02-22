@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import Upload from 'graphql-upload';
+import { FileUpload as Upload } from 'graphql-upload';
 import { AccessToken } from 'livekit-server-sdk';
 import * as sharp from 'sharp';
 
@@ -103,7 +103,7 @@ export class StreamService {
     return true;
   }
 
-  public async changeThumbnail(user: User, uploadedFile: Upload) {
+  public async changeThumbnail(user: User, file: Upload) {
     const stream = await this.findByUserId(user);
 
     if (stream.thumbnailUrl) {
@@ -112,7 +112,7 @@ export class StreamService {
 
     const chunks: Buffer[] = [];
 
-    for await (const chunk of uploadedFile.file.createReadStream()) {
+    for await (const chunk of file.createReadStream()) {
       chunks.push(chunk);
     }
 
@@ -120,10 +120,7 @@ export class StreamService {
 
     const fileName = `/streams/${user.username}.webp`;
 
-    if (
-      uploadedFile.file.filename &&
-      uploadedFile.file.filename.endsWith('.gif')
-    ) {
+    if (file.filename && file.filename.endsWith('.gif')) {
       const processedBuffer = await sharp(buffer, { animated: true })
         .resize(1280, 720)
         .webp()

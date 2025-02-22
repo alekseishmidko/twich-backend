@@ -1,5 +1,5 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import Upload from 'graphql-upload';
+import { FileUpload as Upload } from 'graphql-upload';
 import * as sharp from 'sharp';
 
 import type { User } from '@/prisma/generated';
@@ -20,14 +20,14 @@ export class ProfileService {
     private readonly storageService: StorageService,
   ) {}
 
-  public async changeAvatar(user: User, uploadFile: Upload) {
+  public async changeAvatar(user: User, file: Upload) {
     if (user.avatar) {
       await this.storageService.remove(user.avatar);
     }
 
     const chunks: Buffer[] = [];
 
-    for await (const chunk of uploadFile.file.createReadStream()) {
+    for await (const chunk of file.createReadStream()) {
       chunks.push(chunk);
     }
 
@@ -35,7 +35,7 @@ export class ProfileService {
 
     const fileName = `/channels/${user.username}.webp`;
 
-    if (uploadFile.file.filename && uploadFile.file.filename.endsWith('.gif')) {
+    if (file.filename && file.filename.endsWith('.gif')) {
       const processedBuffer = await sharp(buffer, { animated: true })
         .resize(512, 512)
         .webp()
