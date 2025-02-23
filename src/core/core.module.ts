@@ -28,14 +28,31 @@ import { TransactionModule } from '../modules/sponsorship/transaction/transactio
 import { IngressModule } from '../modules/stream/ingress/ingress.module';
 import { StreamModule } from '../modules/stream/stream.module';
 import { WebhookModule } from '../modules/webhook/webhook.module';
+import { TotpModule } from '../modules/auth/totp/totp.module';
+import { getStripeConfig } from './config/stripe.config';
+import { getLiveKitConfig } from './config/livekit.config';
+import { DeactivateModule } from '../modules/auth/deactivate/deactivate.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ ignoreEnvFile: !IS_DEV_ENV, isGlobal: true }),
+    ConfigModule.forRoot({
+      ignoreEnvFile: !IS_DEV_ENV,
+      isGlobal: true,
+    }),
     GraphQLModule.forRootAsync({
       driver: ApolloDriver,
-      useFactory: getGraphQLConfig,
       imports: [ConfigModule],
+      useFactory: getGraphQLConfig,
+      inject: [ConfigService],
+    }),
+    LivekitModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: getLiveKitConfig,
+      inject: [ConfigService],
+    }),
+    StripeModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: getStripeConfig,
       inject: [ConfigService],
     }),
     PrismaModule,
